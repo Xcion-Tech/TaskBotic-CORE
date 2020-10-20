@@ -6,7 +6,8 @@
   "scripts": {
     "start": "tsc && node dist/index.js",
     "build": "tsc",
-    "dev-start": "ts-node-dev --respawn src/index.ts"
+    "dev-start": "ts-node-dev --respawn src/index.ts", 
+    "prettier-format": "prettier --config .prettierrc.yml 'src/**/*.ts' --write"
   },
   "repository": {
     "type": "git",
@@ -31,7 +32,9 @@
     "@types/request": "^2.48.5",
     "@types/request-promise-native": "^1.0.17",
     "dotenv": "^8.2.0",
+    "husky": "^4.3.0",
     "nodemon": "^2.0.2",
+    "prettier": "^2.1.2",
     "ts-loader": "^6.2.2",
     "ts-node": "^8.8.1",
     "ts-node-dev": "^1.0.0-pre.44",
@@ -55,5 +58,11 @@
     "request": "^2.88.2",
     "request-promise-native": "^1.0.9",
     "underscore": "^1.10.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run prettier-format",
+      "pre-push": "npm run-script build"
+    }
   }
 }
