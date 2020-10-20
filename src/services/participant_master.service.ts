@@ -18,10 +18,40 @@ export class ParticipantMasterService{
         };
 
         let result = await request.get(options);  
-        result = JSON.parse(result) 
-        res.status(200).json(
-          result
-      );
+        result = JSON.parse(result)  
+        let participantData = result["participantData"]; 
+        let sqlValues : any = []
+        participantData.forEach((element:any) => { 
+          let value =  Object.keys(element).map(val => element[val]) 
+          sqlValues.push(value)         
+        });  
+        let db: any = req.headers.db;
+        const conn = await connect(db);
+        let insertQuery: any = `INSERT into master_participant_table(
+          participant_id,
+          name,
+          email,
+          contact_number,
+          linkedin_url,
+          proficiency,
+          expectation,
+          github_url) VALUES ?`;  
+
+          await conn.query(insertQuery,[sqlValues])
+          .then(async (onfulfilled: any) => { 
+            res.status(200).json({
+              message: "Insertion Successfull",
+              values : onfulfilled[0][0]
+          });
+
+          }) 
+          .catch(err => {
+            res.status(500).json({
+                message: err,
+                info: "SQL Insertion error"
+            });
+        }); 
+        conn.end(); 
       } catch (err) {
         res.status(500).json({
           message: err,
