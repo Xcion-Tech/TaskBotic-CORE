@@ -19,7 +19,6 @@ export class ParticipantMasterService{
 
         let result = await request.get(options);  
         result = JSON.parse(result) 
-        console.log(result)  
         res.status(200).json(
           result
       );
