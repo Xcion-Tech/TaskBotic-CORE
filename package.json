@@ -6,7 +6,7 @@
   "scripts": {
     "start": "tsc && node dist/index.js",
     "build": "tsc",
-    "dev-start": "ts-node-dev --respawn src/index.ts", 
+    "dev-start": "ts-node-dev --respawn src/index.ts",
     "prettier-format": "prettier --config .prettierrc.yml 'src/**/*.ts' --write"
   },
   "repository": {
