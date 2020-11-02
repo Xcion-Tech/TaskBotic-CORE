@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { query, Request, Response } from "express";
 import { connect } from "../database.mysql/database";
 import * as http from "http";
 import * as request from "request-promise-native";
@@ -58,5 +58,27 @@ export class ParticipantMasterService {
         info: "API error, not SQL error",
       });
     }
+  }  
+
+  async deleteParticipantTable(req: Request, res: Response) {
+    try{  
+      let db: any = req.headers.db;
+      const conn = await connect(db); 
+      let participant_id = req.body.participant_id; 
+      await conn.query(`DELETE FROM master_participant_table WHERE participant_id = ?`, [participant_id]).then(async (onfulfilled: any) => {
+        res.status(200).json({
+          message: "Data  Deletion  to master_participant_table Successfull", 
+          info : onfulfilled
+        });
+      })
+
+    } 
+    catch(err){  
+      res.status(500).json({
+        message: err,
+        info: "API error, not SQL error",
+      });
+    }
+    
   }
 }
