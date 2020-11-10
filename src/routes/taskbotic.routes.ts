@@ -5,7 +5,7 @@ import { accessTokenValidation } from "../libs/verifyToken";
 import { getParticipantsBatchMapping } from "../controllers/taskbotic.controller";
 import {
   writeParticipantTable,
-  deleteParticipantTable, 
+  deleteParticipantTable,
   getParticipantData,
 } from "../controllers/taskbotic.controller";
 
@@ -23,7 +23,7 @@ router
 
 router
   .route(`/techboutique/taskbotic/deletemasterparticipantdata/:participant_id`)
-  .delete(deleteParticipantTable);  
+  .delete(deleteParticipantTable);
 
 router
   .route(`/techboutique/taskbotic/getmasterparticipantdata/:participant_id`)
