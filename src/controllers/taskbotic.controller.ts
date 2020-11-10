@@ -10,9 +10,12 @@ export async function getParticipantsBatchMapping(req: Request, res: Response) {
 
 export async function writeParticipantTable(req: Request, res: Response) {
   return participantMasterService.writeParticipantTable(req, res);
-} 
-
+}
 
 export async function deleteParticipantTable(req: Request, res: Response) {
   return participantMasterService.deleteParticipantTable(req, res);
-} 
+}
+ 
+export async function getParticipantData(req: Request, res: Response) {
+  return participantMasterService.getParticipantData(req, res);
+}
