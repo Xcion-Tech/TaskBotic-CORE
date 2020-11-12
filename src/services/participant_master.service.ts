@@ -10,16 +10,20 @@ export class ParticipantMasterService {
   constructor() {}
 
   async writeParticipantTable(req: Request, res: Response) {
-    try {
+    try {  
       const baseUrl = "http://localhost:8000";
-      const queryString = "/techboutique/taskbotic/getSpreadsheetData";
+      const queryString = "/techboutique/taskbotic/getSpreadsheetData/";  
       var options = {
-        uri: baseUrl + queryString,
+        uri: baseUrl + queryString, 
+        headers: {
+          'Content-Type': 'application/json', 
+          'sheeturl': 'https://docs.google.com/spreadsheets/d/1rKnKH5vsfvq9GT7o0Or_uVpN_-vOXL5J6ntlR3UwJIQ/edit?usp=sharing'
+        },
       };
 
       let result = await request.get(options);
       result = JSON.parse(result);
-      let participantData = result["participantData"];
+      let participantData = result["spreadsheetData"]; 
       let sqlValues: any = [];
       participantData.forEach((element: any) => {
         let value = Object.keys(element).map((val) => element[val]);
@@ -28,12 +32,14 @@ export class ParticipantMasterService {
       let db: any = req.headers.db;
       const conn = await connect(db);
       let insertQuery: any = `INSERT into master_participant_table(
-          participant_id,
+          participant_id, 
+          timestamp,
           name,
           email,
           contact_number,
           linkedin_url,
-          proficiency,
+          proficiency, 
+          current_status,
           expectation,
           github_url) VALUES ?`;
 
