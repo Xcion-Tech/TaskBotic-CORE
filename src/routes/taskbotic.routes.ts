@@ -6,7 +6,9 @@ import { getParticipantsBatchMapping } from "../controllers/taskbotic.controller
 import {
   writeParticipantTable,
   deleteParticipantTable,
-  getParticipantData,
+  getParticipantData, 
+  writeTaskTable, 
+  getTaskTableData
 } from "../controllers/taskbotic.controller";
 
 router
@@ -27,6 +29,14 @@ router
 
 router
   .route(`/techboutique/taskbotic/getmasterparticipantdata/:participant_id`)
-  .get(getParticipantData);
+  .get(getParticipantData);   
+
+  router
+  .route(`/techboutique/taskbotic/writetasktable`)
+  .get(writeTaskTable); 
+
+  router
+  .route(`/techboutique/taskbotic/gettasktabledata/:task_id`)
+  .get(getTaskTableData);
 
 export default router;
